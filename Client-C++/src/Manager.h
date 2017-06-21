@@ -8,7 +8,9 @@
 
 class Manager {
 public:
-    Manager(unsigned threadCount = std::thread::hardware_concurrency()) {
+    Manager(std::string target_address, unsigned port, unsigned threadCount = std::thread::hardware_concurrency()) :
+        _connection(target_address, port) {
+
         _threadCount = threadCount;
         if (_threadCount <= 0) _threadCount = 1;
     }

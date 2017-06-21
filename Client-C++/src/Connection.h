@@ -7,11 +7,11 @@
 
 class Connection {
 public:
-    Connection() :
+    Connection(std::string target_address, unsigned target_port) :
             _socket(_ioService) {
 
         boost::asio::ip::tcp::resolver resolver(_ioService);
-        boost::asio::ip::tcp::resolver::query query(boost::asio::ip::tcp::v4(), "127.0.0.1", "3000");
+        boost::asio::ip::tcp::resolver::query query(boost::asio::ip::tcp::v4(), target_address, std::to_string(target_port));
         boost::asio::ip::tcp::resolver::iterator iterator = resolver.resolve(query);
 
         _socket.connect(*iterator);

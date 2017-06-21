@@ -3,9 +3,11 @@
 
 #include <boost/multiprecision/cpp_int.hpp>
 #include <vector>
+#include <climits>
 
 boost::multiprecision::cpp_int ZERO = 0;
 boost::multiprecision::cpp_int TWO = 2;
+boost::multiprecision::cpp_int MAX_INT = ULLONG_MAX;
 
 class Block {
 public:
@@ -15,19 +17,34 @@ public:
     }
 
     const std::vector<std::string>& generateResult() {
-        for (boost::multiprecision::cpp_int i = _blockStart;
-             i.compare(_blockEnd) <= 0;
-             i++) {
+        if (_blockEnd.compare(MAX_INT) >= 0) {
+            for (boost::multiprecision::cpp_int i = _blockStart;
+                 i.compare(_blockEnd) <= 0;
+                 i++) {
 
-            if (isPrime(i)) {
-                _result.push_back(i.convert_to<std::string>());
+                if (isPrimeBig(i)) {
+                    _result.push_back(i.convert_to<std::string>());
+                }
+            }
+        } else {
+            unsigned long long blockStart = _blockStart.convert_to<unsigned long long>();
+            unsigned long long blockEnd = _blockEnd.convert_to<unsigned long long>();
+
+            for (unsigned long long i = blockStart;
+                 i <= blockEnd;
+                 i++) {
+
+                if (isPrime(i)) {
+                    _result.push_back(std::to_string(i));
+                }
             }
         }
+
         return _result;
     }
 
 private:
-    bool isPrime(boost::multiprecision::cpp_int p) {
+    bool isPrimeBig(boost::multiprecision::cpp_int p) {
         if (p % TWO == ZERO) return false;
 
         boost::multiprecision::cpp_int i = 3;
@@ -35,6 +52,19 @@ private:
         while(i <= p2) {
             if (p % i == ZERO) return false;
             i += TWO;
+        }
+
+        return true;
+    }
+
+    bool isPrime(unsigned long long p) {
+        if (p % 2 == 0) return false;
+
+        unsigned long long i = 3;
+        unsigned long long p2 = p / 2;
+        while(i <= p2) {
+            if (p % i == 0) return false;
+            i += 2;
         }
 
         return true;
