@@ -5,11 +5,12 @@
 const net = require('net');
 const Client = require('./client');
 const Scheduler = require('./scheduler');
+const Config = require('./config.json')
 
 var clientList = [];
-var scheduler = new Scheduler();
+var scheduler = new Scheduler(Config);
 
 net.createServer(function (socket) {
     clientList.push(new Client(socket, scheduler));
-}).listen(3000);
+}).listen(Config.port);
 

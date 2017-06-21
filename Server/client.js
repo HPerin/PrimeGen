@@ -52,7 +52,7 @@ method._processMessage = function (message) {
     if ('type' in message) {
         switch (message.type) {
             case 'BLOCK_REQUEST': {
-                if (t.current_blocks.length < 10) {
+                if (t.current_blocks.length < 128) {
                     t.scheduler.getUnfinishedBlock(function (row) {
                         t.current_blocks.push(String(row.id));
                         t._sendMessage(JSON.stringify({

@@ -9,9 +9,11 @@ class Block(multiprocessing.Process):
         self.queue = queue
 
     def run(self):
+        print('PROCESSING BLOCK: ' + str(self.block_start) + ' - ' + str(self.block_end))
         for i in range(self.block_start, self.block_end+1):
             if self.__is_prime(i):
                 self.queue.put(i)
+        print('FINISHED BLOCK: ' + str(self.block_start) + ' - ' + str(self.block_end))
 
     def __is_prime(self, p):
         if p % 2 == 0:

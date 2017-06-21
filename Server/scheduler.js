@@ -6,10 +6,11 @@ var method = Scheduler.prototype;
 
 var lock = false;
 
-function Scheduler() {
+function Scheduler(Config) {
     this.db = new sqlite3.Database('./prime.db');
     this.lastBlockStart = bignum("0");
     this.blocksOnProgress = [];
+    this.confirmations = Config.confirmations;
 
     var t = this;
     this.db.run(fs.readFileSync('./data.sql', 'utf8'), function (err) {
@@ -31,7 +32,8 @@ function Scheduler() {
 method.getFinishedBlocks = function (first_id, callback) {
     if (first_id === undefined) first_id = -1;
 
-    this.db.prepare('select data from prime_blocks where confirmations >= 2 and id > ?').all(first_id, function (err, rows) {
+    var t = this;
+    this.db.prepare('select data from prime_blocks where confirmations >= ? and id > ?').all(t.confirmations, first_id, function (err, rows) {
         if (err) throw err;
 
         if (rows === undefined) rows = [];
@@ -81,7 +83,7 @@ method.updateBlockData = function (data, block_start, block_end, id, callback) {
                             callback(true);
                         });
                     } else {
-                        t.db.prepare('update prime_blocks set confirmations = ? where block_start = ? and block_end = ?').run(-1, block_start, block_end,
+                        t.db.prepare('update prime_blocks set confirmations = ? where block_start = ? and block_end = ?').run(- t.confirmations, block_start, block_end,
                             function (err) {
                             if (err) throw err;
                             lock = false;
@@ -103,7 +105,7 @@ method.updateBlockData = function (data, block_start, block_end, id, callback) {
 method.getUnfinishedBlock = function (callback) {
     var t = this;
 
-    t.db.all('select * from prime_blocks where confirmations < 2', function (err, rows) {
+    t.db.prepare('select * from prime_blocks where confirmations < ?').all(t.confirmations, function (err, rows) {
         if (err) throw err;
 
         var found = false;
