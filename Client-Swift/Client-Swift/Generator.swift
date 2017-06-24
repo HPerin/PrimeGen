@@ -11,18 +11,26 @@ import Foundation
 class Generator {
     let connectionManager : ConnectionManager
     
-    init() {
-        self.connectionManager = ConnectionManager.init(address: "127.0.0.1", port: 5000)
+    init?(address:String, port:Int32) {
+        if let connectionManager = ConnectionManager.init(address: address, port: port) {
+            self.connectionManager = connectionManager
+        } else {
+            return nil
+        }
     }
     
-    func runOnce() -> [Int] {
+    func runOnce() -> [Int]? {
         let block = self.connectionManager.getBlock()
         
         let primes = calculate(block: block)
         
-        self.connectionManager.sendResult(block: block, primes: primes)
+        let result = self.connectionManager.sendResult(block: block, primes: primes)
         
-        return primes
+        if result {
+            return primes
+        } else {
+            return nil
+        }
     }
     
     private func calculate(block:[String:Int]) -> [Int] {

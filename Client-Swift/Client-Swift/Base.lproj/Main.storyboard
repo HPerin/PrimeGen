@@ -22,36 +22,86 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YER-hB-D2B">
-                                <rect key="frame" x="16" y="617" width="343" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="9hr-1c-YkT"/>
-                                </constraints>
-                                <state key="normal" title="Run"/>
-                                <connections>
-                                    <action selector="runPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6Xq-9s-f4W"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="IDB-tm-QZa">
-                                <rect key="frame" x="16" y="20" width="343" height="597"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="IDB-tm-QZa">
+                                <rect key="frame" x="16" y="98" width="343" height="569"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="BSF-sB-qK4">
+                                <rect key="frame" x="16" y="28" width="343" height="70"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Q1h-gp-MJV">
+                                        <rect key="frame" x="0.0" y="4.5" width="161.5" height="61"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hostname / IP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6kJ-kW-fcL">
+                                                <rect key="frame" x="27" y="0.0" width="107.5" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="127.0.0.1" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YJq-ip-RRB">
+                                                <rect key="frame" x="27" y="31" width="107.5" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="URL"/>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="YJq-ip-RRB" firstAttribute="width" secondItem="6kJ-kW-fcL" secondAttribute="width" id="UEG-u0-ybM"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="0cX-KD-FBr">
+                                        <rect key="frame" x="169.5" y="4.5" width="116.5" height="61"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Port" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwL-SU-HBY">
+                                                <rect key="frame" x="30" y="0.0" width="56" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="5000" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X29-ML-V5M">
+                                                <rect key="frame" x="30" y="31" width="56" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="X29-ML-V5M" firstAttribute="width" secondItem="NwL-SU-HBY" secondAttribute="width" id="5V3-Td-5h9"/>
+                                        </constraints>
+                                    </stackView>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="d7l-T3-JfB">
+                                        <rect key="frame" x="294" y="19.5" width="51" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="49" id="Yx1-Z1-pX0"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="switchChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="nR1-1x-o9Y"/>
+                                        </connections>
+                                    </switch>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="SQe-Vr-VGz"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="IDB-tm-QZa" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Kqh-c0-q4s"/>
-                            <constraint firstItem="YER-hB-D2B" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="U6z-dC-Wff"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="YER-hB-D2B" secondAttribute="bottom" id="kwC-jG-VZT"/>
-                            <constraint firstItem="YER-hB-D2B" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="lOa-RF-ydF"/>
-                            <constraint firstItem="IDB-tm-QZa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="ung-Hh-aK3"/>
-                            <constraint firstItem="YER-hB-D2B" firstAttribute="top" secondItem="IDB-tm-QZa" secondAttribute="bottom" id="xLr-Ql-Ia0"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="IDB-tm-QZa" secondAttribute="trailing" id="zV8-qX-HF6"/>
+                            <constraint firstItem="BSF-sB-qK4" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="4vp-bW-mmI"/>
+                            <constraint firstItem="IDB-tm-QZa" firstAttribute="top" secondItem="BSF-sB-qK4" secondAttribute="bottom" id="952-ku-BGb"/>
+                            <constraint firstItem="IDB-tm-QZa" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="AWL-1e-wBd"/>
+                            <constraint firstItem="BSF-sB-qK4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="DP3-bu-fIi"/>
+                            <constraint firstItem="IDB-tm-QZa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="Ode-MZ-bqR"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="BSF-sB-qK4" secondAttribute="trailing" id="vJF-f8-uiW"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="IDB-tm-QZa" secondAttribute="bottom" id="vcA-1a-IDd"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="ipTextField" destination="YJq-ip-RRB" id="PLH-V8-V7g"/>
+                        <outlet property="portTextField" destination="X29-ML-V5M" id="cn8-2f-omK"/>
+                        <outlet property="switchControl" destination="d7l-T3-JfB" id="xlC-Uj-nq6"/>
                         <outlet property="textView" destination="IDB-tm-QZa" id="pzj-Ea-hQC"/>
                     </connections>
                 </viewController>

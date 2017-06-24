@@ -15,6 +15,7 @@
 		80C2AFD51EFECA6400DDD88D /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C2AFD41EFECA6400DDD88D /* ConnectionManager.swift */; };
 		80C2AFD71EFECA7400DDD88D /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C2AFD61EFECA7400DDD88D /* Generator.swift */; };
 		80C2AFDD1EFED5E200DDD88D /* SwiftSocket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C2AFDC1EFED5E200DDD88D /* SwiftSocket.framework */; };
+		E5B0FBC141D257B2E5B69E82 /* Pods_Client_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31437C2CC8B8A3C8B75EDE98 /* Pods_Client_Swift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -52,6 +53,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80C2AFDD1EFED5E200DDD88D /* SwiftSocket.framework in Frameworks */,
+				E5B0FBC141D257B2E5B69E82 /* Pods_Client_Swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,7 +368,7 @@
 				DEVELOPMENT_TEAM = B524284DDA;
 				INFOPLIST_FILE = "Client-Swift/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.teste.Client-Swift";
+				PRODUCT_BUNDLE_IDENTIFIER = com.cblunardi.primegen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -380,7 +382,7 @@
 				DEVELOPMENT_TEAM = B524284DDA;
 				INFOPLIST_FILE = "Client-Swift/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.teste.Client-Swift";
+				PRODUCT_BUNDLE_IDENTIFIER = com.cblunardi.primegen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
