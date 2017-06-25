@@ -5,7 +5,7 @@
 const net = require('net');
 const Client = require('./client');
 const Scheduler = require('./scheduler');
-const Config = require('./config.json')
+const Config = require('./config.json');
 
 var clientList = [];
 var scheduler = new Scheduler(Config);

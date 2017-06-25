@@ -6,11 +6,22 @@ var method = Scheduler.prototype;
 
 var lock = false;
 
+var start = undefined;
+
+function elapsed_time(note){
+    var precision = 3; // 3 decimal places
+    var elapsed = process.hrtime(start)[1] / 1000000; // divide by a million to get nano to milli
+    console.log(process.hrtime(start)[0] + " s, " + elapsed.toFixed(precision) + " ms - " + note); // print message + time
+    start = process.hrtime(); // reset the timer
+}
+
 function Scheduler(Config) {
     this.db = new sqlite3.Database('./prime.db');
     this.lastBlockStart = bignum("0");
     this.blocksOnProgress = [];
     this.confirmations = Config.confirmations;
+    this.benchmark = Config.benchmark;
+
 
     var t = this;
     this.db.run(fs.readFileSync('./data.sql', 'utf8'), function (err) {
@@ -41,8 +52,23 @@ method.getFinishedBlocks = function (first_id, callback) {
     });
 };
 
-method.updateBlockData = function (data, block_start, block_end, id, callback) {
+method.updateBlockData = function (data, block_start, block_end, id, done) {
     var t = this;
+    function callback(valid) {
+        if (!t.benchmark || !valid) {
+            done(valid);
+        } else {
+            t.db.prepare('select (select count() from prime_blocks where confirmations >= ?) as count from prime_blocks').all(t.confirmations, function (err, rows) {
+                if (rows[0].count >= 100) {
+                    elapsed_time('FINISHED BENCHMARK');
+                    process.exit(0);
+                } else {
+                    done(valid);
+                }
+            });
+        }
+    }
+
     function insertData() {
         if (!lock) {
             lock = true;
@@ -104,6 +130,8 @@ method.updateBlockData = function (data, block_start, block_end, id, callback) {
 
 method.getUnfinishedBlock = function (callback) {
     var t = this;
+
+    if (start === undefined) start = process.hrtime();
 
     t.db.prepare('select * from prime_blocks where confirmations < ?').all(t.confirmations, function (err, rows) {
         if (err) throw err;

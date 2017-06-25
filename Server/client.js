@@ -71,7 +71,7 @@ method._processMessage = function (message) {
             } break;
             case 'BLOCK_RESULT': {
                 var index = t.current_blocks.indexOf(message.id);
-                if (index != -1) {
+                if (index !== -1) {
                     t.current_blocks.splice(index, 1);
                     t.scheduler.updateBlockData(message.data, message.block_start, message.block_end, message.id, function (valid) {
                         t._sendMessage(JSON.stringify({
