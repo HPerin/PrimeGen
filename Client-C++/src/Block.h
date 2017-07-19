@@ -11,12 +11,13 @@ boost::multiprecision::cpp_int MAX_INT = ULLONG_MAX;
 
 class Block {
 public:
-    Block(const std::string& blockStart, const std::string& blockEnd) {
+    Block(const std::string& id, const std::string& blockStart, const std::string& blockEnd) {
         _blockStart.backend() = blockStart.c_str();
         _blockEnd.backend() = blockEnd.c_str();
+        _id = id;
     }
 
-    const std::vector<std::string>& generateResult() {
+    void generateResult() {
         if (_blockEnd.compare(MAX_INT) >= 0) {
             for (boost::multiprecision::cpp_int i = _blockStart;
                  i.compare(_blockEnd) <= 0;
@@ -39,9 +40,13 @@ public:
                 }
             }
         }
-
-        return _result;
     }
+
+    const std::vector<std::string>& getResult() { return _result; }
+
+    std::string getBlockStart() { return _blockStart.convert_to<std::string>(); }
+    std::string getId() { return _id; }
+    std::string getBlockEnd() { return _blockEnd.convert_to<std::string>(); }
 
 private:
     bool isPrimeBig(boost::multiprecision::cpp_int p) {
@@ -74,6 +79,7 @@ private:
 
     boost::multiprecision::cpp_int _blockStart;
     boost::multiprecision::cpp_int _blockEnd;
+    std::string _id;
 };
 
 #endif //PRIMEGEN_BLOCK_H

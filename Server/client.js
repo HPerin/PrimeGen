@@ -52,7 +52,7 @@ method._processMessage = function (message) {
     if ('type' in message) {
         switch (message.type) {
             case 'BLOCK_REQUEST': {
-                if (t.current_blocks.length < 128) {
+                if (t.current_blocks.length < 4096) {
                     t.scheduler.getUnfinishedBlock(function (row) {
                         t.current_blocks.push(String(row.id));
                         t._sendMessage(JSON.stringify({
@@ -65,7 +65,7 @@ method._processMessage = function (message) {
                 } else {
                     t._sendMessage(JSON.stringify({
                         type: 'ERROR',
-                        report: 'Cannot request more than 10 blocks at the same time.'
+                        report: 'Cannot request more than 4096 blocks at the same time.'
                     }));
                 }
             } break;
