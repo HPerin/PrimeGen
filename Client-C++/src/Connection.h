@@ -14,6 +14,8 @@ public:
         boost::asio::ip::tcp::resolver::query query(boost::asio::ip::tcp::v4(), target_address, std::to_string(target_port));
         boost::asio::ip::tcp::resolver::iterator iterator = resolver.resolve(query);
 
+	_socket.open(boost::asio::ip::tcp::v4());
+	_socket.set_option(boost::asio::ip::tcp::no_delay(true));
         _socket.connect(*iterator);
     }
 

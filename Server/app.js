@@ -11,6 +11,7 @@ var clientList = [];
 var scheduler = new Scheduler(Config);
 
 net.createServer(function (socket) {
+    socket.setNoDelay(true);
     clientList.push(new Client(socket, scheduler));
 }).listen(Config.port);
 

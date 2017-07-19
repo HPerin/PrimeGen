@@ -20,7 +20,7 @@ function Client(socket, scheduler) {
                 var message_list = t.current_message.split('$');
                 if (message_list.length > 1) {
                     for (var i = 0; i < message_list.length - 1; i++) {
-                        console.log('READ: ' + message_list[i]);
+                        //console.log('READ: ' + message_list[i]);
                         var message = JSON.parse(message_list[i]);
                         t._processMessage(message);
                     }

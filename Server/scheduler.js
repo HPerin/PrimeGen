@@ -16,11 +16,13 @@ function elapsed_time(note){
 }
 
 function Scheduler(Config) {
-    this.db = new sqlite3.Database('./prime.db');
+    if (Config.benchmark) this.db = new sqlite3.Database(':memory:');
+    else this.db = new sqlite3.Database('./prime.db');
     this.lastBlockStart = bignum("0");
     this.blocksOnProgress = [];
     this.confirmations = Config.confirmations;
     this.benchmark = Config.benchmark;
+    this.block_size = Config.block_size;
 
 
     var t = this;
@@ -31,7 +33,7 @@ function Scheduler(Config) {
             if (err) throw err;
 
             if (rows !== undefined && rows.length > 0) {
-                t.lastBlockStart = bignum(rows[0].block_start).add(10000);
+                t.lastBlockStart = bignum(rows[0].block_start).add(t.block_size);
             }
 
             console.log('LAST BLOCK START: ' + t.lastBlockStart);
@@ -59,7 +61,7 @@ method.updateBlockData = function (data, block_start, block_end, id, done) {
             done(valid);
         } else {
             t.db.prepare('select (select count() from prime_blocks where confirmations >= ?) as count from prime_blocks').all(t.confirmations, function (err, rows) {
-                if (rows[0].count >= 100) {
+                if (rows[0].count >= (1000000 / t.block_size)) {
                     elapsed_time('FINISHED BENCHMARK');
                     process.exit(0);
                 } else {
@@ -152,12 +154,12 @@ method.getUnfinishedBlock = function (callback) {
             function insertBlock() {
                 if (!lock) {
                     lock = true;
-                    t.db.prepare('insert into prime_blocks (block_start, block_end) values (?, ?)').run(t.lastBlockStart.toString(), t.lastBlockStart.add(9999).toString(), function (err) {
+                    t.db.prepare('insert into prime_blocks (block_start, block_end) values (?, ?)').run(t.lastBlockStart.toString(), t.lastBlockStart.add(t.block_size-1).toString(), function (err) {
                         if (err) throw err;
                     }).finalize(function (err) {
                         if (err) throw err;
 
-                        t.lastBlockStart = t.lastBlockStart.add(10000);
+                        t.lastBlockStart = t.lastBlockStart.add(t.block_size);
                         lock = false;
                         t.getUnfinishedBlock(callback);
                     });

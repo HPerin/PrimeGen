@@ -1,5 +1,6 @@
 {
     "port": 5000,
-    "confirmations": 2,
+    "confirmations": 1,
+    "block_size": 50000,
     "benchmark": true
 }
